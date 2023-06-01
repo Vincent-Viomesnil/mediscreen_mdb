@@ -1,25 +1,23 @@
 package com.ocr.mediscreen_mdb.model;
 
-import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "Notes")
 public class PatientHistory {
     @Id
-    @NotNull
     private Long id;
-    @NotNull
+
     private String firstname;
-    @NotNull
     private String notes;
 }
