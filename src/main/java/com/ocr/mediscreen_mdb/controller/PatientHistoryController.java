@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 @RestController
@@ -31,14 +32,14 @@ public class PatientHistoryController {
 
 
         @GetMapping(value = "/PatHistory/{firstname}")
-        public Optional<PatientHistory> getPatientByFirstname(@Valid @PathVariable String firstname) {
-            Optional<PatientHistory> patHistory = patientHistoryService.findByFirstname(firstname);
-            if (patHistory.isEmpty()) {
+        public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String firstname) {
+            List<PatientHistory> patientHistoryList = patientHistoryService.findByFirstname(firstname);
+            if (patientHistoryList.isEmpty()) {
                 throw new PatientIntrouvableException("Patient history with firstname: " + firstname + " is not found");
             }
-            logger.info(patHistory.get().getFirstname());
+            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getFirstname()));
 
-            return patHistory;
+            return patientHistoryList;
         }
 //        @PostMapping(value = "/Patient/add")
 //        public ResponseEntity<Object> addPatient(@Valid @RequestBody Patient patient) {

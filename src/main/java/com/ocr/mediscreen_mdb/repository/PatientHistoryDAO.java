@@ -10,6 +10,5 @@ import java.util.Optional;
 @Repository
 public interface PatientHistoryDAO extends MongoRepository<PatientHistory, String> {
     List<PatientHistory> findAll();
-
-    Optional<PatientHistory> findByFirstname(String firstname);
+    List<PatientHistory> findByFirstname(String firstname);
 }

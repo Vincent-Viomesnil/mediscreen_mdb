@@ -17,7 +17,7 @@ public class PatientHistoryService {
         return patientHistoryDAO.findAll();
     }
 
-    public Optional<PatientHistory> findByFirstname(String firstname) {
+    public List<PatientHistory> findByFirstname(String firstname) {
         return patientHistoryDAO.findByFirstname(firstname);
     }
 
