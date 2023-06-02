@@ -23,4 +23,5 @@ public class PatientHistory {
     private Long patId;
     private String firstname;
     private String notes;
+
 }
