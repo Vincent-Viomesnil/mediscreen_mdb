@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "Notes")
 public class PatientHistory {
+
     @Id
     private ObjectId _id;
 

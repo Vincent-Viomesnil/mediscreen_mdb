@@ -21,4 +21,7 @@ public class PatientHistoryService {
         return patientHistoryDAO.findByFirstname(firstname);
     }
 
+    public PatientHistory addPatientHistorty(PatientHistory patientHistory) {
+        return patientHistoryDAO.insert(patientHistory);
+    }
 }

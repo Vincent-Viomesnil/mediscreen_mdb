@@ -2,11 +2,13 @@ package com.ocr.mediscreen_mdb.controller;
 
 import com.ocr.mediscreen_mdb.Mediscreen_mdbApplication;
 import com.ocr.mediscreen_mdb.exceptions.PatientIntrouvableException;
+import com.ocr.mediscreen_mdb.exceptions.PatientNonCreeException;
 import com.ocr.mediscreen_mdb.model.PatientHistory;
 import com.ocr.mediscreen_mdb.service.PatientHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,14 +43,14 @@ public class PatientHistoryController {
 
             return patientHistoryList;
         }
-//        @PostMapping(value = "/Patient/add")
-//        public ResponseEntity<Object> addPatient(@Valid @RequestBody Patient patient) {
-//            Patient patientAdded = patientService.addPatient(patient);
-//            if (patientAdded != null) {
-//                return ResponseEntity.ok(patientAdded);
-//            }
-//            throw new PatientNonCreeException("Verify the mandatory data");
-//        }
+        @PostMapping(value = "/PatHistory/add")
+        public ResponseEntity<Object> addPatient(@Valid @RequestBody PatientHistory patientHistory) {
+            PatientHistory patientAdded = patientHistoryService.addPatientHistorty(patientHistory);
+            if (patientHistory != null) {
+                return ResponseEntity.ok(patientAdded);
+            }
+            throw new PatientNonCreeException("Verify the mandatory data");
+        }
 //
 //
 //        @PutMapping(value ="/Patient/update/{firstname}" )
