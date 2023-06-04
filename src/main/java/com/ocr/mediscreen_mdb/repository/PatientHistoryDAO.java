@@ -11,6 +11,9 @@ import java.util.Optional;
 public interface PatientHistoryDAO extends MongoRepository<PatientHistory, String> {
     List<PatientHistory> findAll();
     List<PatientHistory> findByFirstname(String firstname);
-
     PatientHistory insert(PatientHistory patientHistory);
+
+    PatientHistory save(PatientHistory patientHistoryToUpdate);
+
+    PatientHistory deleteByFirstname(String firstname);
 }

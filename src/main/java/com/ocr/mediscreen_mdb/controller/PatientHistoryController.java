@@ -51,18 +51,18 @@ public class PatientHistoryController {
             }
             throw new PatientNonCreeException("Verify the mandatory data");
         }
-//
-//
-//        @PutMapping(value ="/Patient/update/{firstname}" )
-//        public Patient updatePatient(@PathVariable String firstname, @RequestBody Patient patientToUpdate) {
-//            return patientService.updatePatient(firstname, patientToUpdate);
-//        }
-//
-//        @DeleteMapping(value="/Patient/delete/{firstname}")
-//        public Patient deletePatient(@PathVariable String firstname) {
-//            return patientService.deletePatient(firstname);
-//        }
-//
-//    }
 
-}
+
+        @PutMapping(value ="/PatHistory/update/{firstname}" )
+        public PatientHistory updatePatient(@PathVariable String firstname, @RequestBody PatientHistory patientToUpdate) {
+            return patientHistoryService.updatePatient(firstname, patientToUpdate);
+        }
+
+        @DeleteMapping(value="/PatHistory/delete/{firstname}")
+        public PatientHistory deletePatient(@PathVariable String firstname) {
+            return patientHistoryService.deletePatient(firstname);
+        }
+
+    }
+
+
