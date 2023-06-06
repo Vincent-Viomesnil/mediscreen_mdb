@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 @RestController
@@ -27,19 +25,19 @@ public class PatientHistoryController {
         @RequestMapping(value = "/PatHistory", method = RequestMethod.GET)
         public List<PatientHistory> patientList() {
             List<PatientHistory> patientHistoryList = patientHistoryService.findAll();
-            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getFirstname()));
+            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getLastname()));
 
             return patientHistoryList;
         }
 
 
-        @GetMapping(value = "/PatHistory/{firstname}")
-        public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String firstname) {
-            List<PatientHistory> patientHistoryList = patientHistoryService.findByFirstname(firstname);
+        @GetMapping(value = "/PatHistory/{lastname}")
+        public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String lastname) {
+            List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
             if (patientHistoryList.isEmpty()) {
-                throw new PatientIntrouvableException("Patient history with firstname: " + firstname + " is not found");
+                throw new PatientIntrouvableException("Patient history with lastname: " + lastname + " is not found");
             }
-            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getFirstname()));
+            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getLastname()));
 
             return patientHistoryList;
         }
@@ -53,14 +51,14 @@ public class PatientHistoryController {
         }
 
 
-        @PutMapping(value ="/PatHistory/update/{firstname}" )
-        public PatientHistory updatePatient(@PathVariable String firstname, @RequestBody PatientHistory patientToUpdate) {
-            return patientHistoryService.updatePatient(firstname, patientToUpdate);
+        @PutMapping(value = "/PatHistory/update/{lastname}")
+        public PatientHistory updatePatient(@PathVariable String lastname, @RequestBody PatientHistory patientToUpdate) {
+            return patientHistoryService.updatePatient(lastname, patientToUpdate);
         }
 
-        @DeleteMapping(value="/PatHistory/delete/{firstname}")
-        public PatientHistory deletePatient(@PathVariable String firstname) {
-            return patientHistoryService.deletePatient(firstname);
+        @DeleteMapping(value= "/PatHistory/delete/{lastname}")
+        public PatientHistory deletePatient(@PathVariable String lastname) {
+            return patientHistoryService.deletePatient(lastname);
         }
 
     }

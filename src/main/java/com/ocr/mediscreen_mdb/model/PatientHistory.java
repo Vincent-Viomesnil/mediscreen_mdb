@@ -21,7 +21,7 @@ public class PatientHistory {
     private ObjectId _id;
 
     private Long patId;
-    private String firstname;
+    private String lastname;
     private String notes;
 
 }

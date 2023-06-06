@@ -19,22 +19,22 @@ public class PatientHistoryService {
         return patientHistoryDAO.findAll();
     }
 
-    public List<PatientHistory> findByFirstname(String firstname) {
-        return patientHistoryDAO.findByFirstname(firstname);
+    public List<PatientHistory> findByLastname(String lastname) {
+        return patientHistoryDAO.findByLastname(lastname);
     }
 
     public PatientHistory addPatientHistorty(PatientHistory patientHistory) {
         return patientHistoryDAO.insert(patientHistory);
     }
 
-    public PatientHistory updatePatient(String firstname, PatientHistory patientHistoryToUpdate) {
-        List<PatientHistory> patientHistoryList = patientHistoryDAO.findByFirstname(firstname);
+    public PatientHistory updatePatient(String lastname, PatientHistory patientHistoryToUpdate) {
+        List<PatientHistory> patientHistoryList = patientHistoryDAO.findByLastname(lastname);
         log.info("Patient " + patientHistoryList);
         patientHistoryDAO.save(patientHistoryToUpdate);
         return patientHistoryToUpdate;
     }
 
-    public PatientHistory deletePatient(String firstname) {
-        return patientHistoryDAO.deleteByFirstname(firstname);
+    public PatientHistory deletePatient(String lastname) {
+        return patientHistoryDAO.deleteByLastname(lastname);
     }
 }
