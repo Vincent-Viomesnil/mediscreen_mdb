@@ -41,6 +41,8 @@ public class PatientHistoryController {
 
             return patientHistoryList;
         }
+
+
         @PostMapping(value = "/PatHistory/add")
         public ResponseEntity<Object> addPatient(@Valid @RequestBody PatientHistory patientHistory) {
             PatientHistory patientAdded = patientHistoryService.addPatientHistorty(patientHistory);
