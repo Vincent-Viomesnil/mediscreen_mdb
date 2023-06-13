@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 @RestController
@@ -31,17 +32,35 @@ public class PatientHistoryController {
         }
 
 
-        @GetMapping(value = "/PatHistory/lastname/{lastname}")
-        public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String lastname) {
-            List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
-            if (patientHistoryList.isEmpty()) {
-                throw new PatientIntrouvableException("Patient history with lastname: " + lastname + " is not found");
-            }
-            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getLastname()));
+//        @GetMapping(value = "/PatHistory/lastname/{lastname}")
+//        public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String lastname) {
+//            List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
+//            if (patientHistoryList.isEmpty()) {
+//                throw new PatientIntrouvableException("Patient history with lastname: " + lastname + " is not found");
+//            }
+//            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getLastname()));
+//
+//            return patientHistoryList;
+//        }
+@GetMapping(value = "/PatHistory/lastname/{lastname}")
+public PatientHistory getPatientByLastname(@Valid @PathVariable String lastname) {
+    List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
+    if (patientHistoryList.isEmpty()) {
+        throw new PatientIntrouvableException("Patient history not found");
+    }
 
-            return patientHistoryList;
-        }
+    PatientHistory patientHistory = new PatientHistory();
+    patientHistory.set_id(patientHistoryList.get(0).get_id());
+    patientHistory.setPatId(patientHistoryList.get(0).getPatId());
+    patientHistory.setLastname(patientHistoryList.get(0).getLastname());
 
+    List<String> notes = patientHistoryList.stream()
+            .map(PatientHistory::getNotes)
+            .collect(Collectors.toList());
+    patientHistory.setNotes(notes.toString());
+
+    return patientHistory;
+}
     @GetMapping(value = "/PatHistory/id/{patId}")
     public List<PatientHistory> getPatientByPatId(@Valid @PathVariable Long patId) {
         List<PatientHistory> patientHistoryList = patientHistoryService.findByPatId(patId);
