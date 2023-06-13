@@ -37,4 +37,8 @@ public class PatientHistoryService {
     public PatientHistory deletePatient(String lastname) {
         return patientHistoryDAO.deleteByLastname(lastname);
     }
+
+    public List<PatientHistory> findByPatId(Long patId) {
+        return patientHistoryDAO.findByPatId(patId);
+    }
 }

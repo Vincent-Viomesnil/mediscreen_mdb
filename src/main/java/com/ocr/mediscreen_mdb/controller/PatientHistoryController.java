@@ -22,7 +22,7 @@ public class PatientHistoryController {
         private final Logger logger = LoggerFactory.getLogger(Mediscreen_mdbApplication.class);
 
         //Retrieve patients history list
-        @RequestMapping(value = "/PatHistory", method = RequestMethod.GET)
+        @GetMapping(value = "/PatHistoryList")
         public List<PatientHistory> patientList() {
             List<PatientHistory> patientHistoryList = patientHistoryService.findAll();
             patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getLastname()));
@@ -31,7 +31,7 @@ public class PatientHistoryController {
         }
 
 
-        @GetMapping(value = "/PatHistory/{lastname}")
+        @GetMapping(value = "/PatHistory/lastname/{lastname}")
         public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String lastname) {
             List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
             if (patientHistoryList.isEmpty()) {
@@ -41,6 +41,17 @@ public class PatientHistoryController {
 
             return patientHistoryList;
         }
+
+    @GetMapping(value = "/PatHistory/id/{patId}")
+    public List<PatientHistory> getPatientByPatId(@Valid @PathVariable Long patId) {
+        List<PatientHistory> patientHistoryList = patientHistoryService.findByPatId(patId);
+        if (patientHistoryList.isEmpty()) {
+            throw new PatientIntrouvableException("Patient history with patId: " + patId + " is not found");
+        }
+        patientHistoryList.stream().forEach((pHL) -> logger.info(String.valueOf(pHL.getPatId())));
+
+        return patientHistoryList;
+    }
 
 
         @PostMapping(value = "/PatHistory/add")

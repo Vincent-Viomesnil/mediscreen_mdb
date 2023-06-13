@@ -16,4 +16,6 @@ public interface PatientHistoryDAO extends MongoRepository<PatientHistory, Strin
     PatientHistory save(PatientHistory patientHistoryToUpdate);
 
     PatientHistory deleteByLastname(String lastname);
+
+    List<PatientHistory> findByPatId(Long patId);
 }
