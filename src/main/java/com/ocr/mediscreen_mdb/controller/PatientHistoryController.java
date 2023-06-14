@@ -31,17 +31,6 @@ public class PatientHistoryController {
             return patientHistoryList;
         }
 
-
-//        @GetMapping(value = "/PatHistory/lastname/{lastname}")
-//        public List<PatientHistory> getPatientByFirstname(@Valid @PathVariable String lastname) {
-//            List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
-//            if (patientHistoryList.isEmpty()) {
-//                throw new PatientIntrouvableException("Patient history with lastname: " + lastname + " is not found");
-//            }
-//            patientHistoryList.stream().forEach((pHL) -> logger.info(pHL.getLastname()));
-//
-//            return patientHistoryList;
-//        }
 @GetMapping(value = "/PatHistory/lastname/{lastname}")
 public PatientHistory getPatientByLastname(@Valid @PathVariable String lastname) {
     List<PatientHistory> patientHistoryList = patientHistoryService.findByLastname(lastname);
