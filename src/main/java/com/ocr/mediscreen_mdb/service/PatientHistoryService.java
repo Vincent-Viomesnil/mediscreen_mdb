@@ -23,7 +23,7 @@ public class PatientHistoryService {
         return patientHistoryDAO.findByLastname(lastname);
     }
 
-    public PatientHistory addPatientHistorty(PatientHistory patientHistory) {
+    public PatientHistory addPatientHistory(PatientHistory patientHistory) {
         return patientHistoryDAO.insert(patientHistory);
     }
 
