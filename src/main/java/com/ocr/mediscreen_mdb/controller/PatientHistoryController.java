@@ -72,10 +72,10 @@ public PatientHistory getPatientByLastname(@Valid @PathVariable String lastname)
 
 
         @PostMapping(value = "/PatHistory/add")
-        public ResponseEntity<Object> addPatient(@Valid @RequestBody PatientHistory patientHistory) {
+        public PatientHistory addPatient(@Valid @RequestBody PatientHistory patientHistory) {
             PatientHistory patientAdded = patientHistoryService.addPatientHistory(patientHistory);
             if (patientHistory != null) {
-                return ResponseEntity.ok(patientAdded);
+                return ResponseEntity.ok(patientAdded).getBody();
             }
             throw new PatientNonCreeException("Verify the mandatory data");
         }
