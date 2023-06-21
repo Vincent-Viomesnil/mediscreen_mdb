@@ -82,14 +82,24 @@ public PatientHistory getPatientByLastname(@Valid @PathVariable String lastname)
 
 
         @PutMapping(value = "/PatHistory/update/{lastname}")
-        public PatientHistory updatePatient(@PathVariable String lastname, @RequestBody PatientHistory patientToUpdate) {
-            return patientHistoryService.updatePatient(lastname, patientToUpdate);
+        public PatientHistory updatePatientByLastname(@PathVariable String lastname, @RequestBody PatientHistory patientToUpdate) {
+            return patientHistoryService.updatePatientByLastname(lastname, patientToUpdate);
         }
 
         @DeleteMapping(value= "/PatHistory/delete/{lastname}")
-        public PatientHistory deletePatient(@PathVariable String lastname) {
-            return patientHistoryService.deletePatient(lastname);
+        public PatientHistory deletePatientByLastname(@PathVariable String lastname) {
+            return patientHistoryService.deletePatientByLastname(lastname);
         }
+
+    @PutMapping(value = "/PatHistory/update/{patId}")
+    public PatientHistory updatePatientById(@PathVariable Long patId, @RequestBody PatientHistory patientToUpdate) {
+        return patientHistoryService.updatePatientById(patId, patientToUpdate);
+    }
+
+    @DeleteMapping(value= "/PatHistory/delete/{patId}")
+    public PatientHistory deletePatientById(@PathVariable Long patId) {
+        return patientHistoryService.deletePatientyId(patId);
+    }
 
     }
 

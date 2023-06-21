@@ -27,15 +27,26 @@ public class PatientHistoryService {
         return patientHistoryDAO.insert(patientHistory);
     }
 
-    public PatientHistory updatePatient(String lastname, PatientHistory patientHistoryToUpdate) {
+    public PatientHistory updatePatientByLastname(String lastname, PatientHistory patientHistoryToUpdate) {
         List<PatientHistory> patientHistoryList = patientHistoryDAO.findByLastname(lastname);
         log.info("Patient " + patientHistoryList);
         patientHistoryDAO.save(patientHistoryToUpdate);
         return patientHistoryToUpdate;
     }
 
-    public PatientHistory deletePatient(String lastname) {
+    public PatientHistory deletePatientByLastname(String lastname) {
         return patientHistoryDAO.deleteByLastname(lastname);
+    }
+
+    public PatientHistory updatePatientById(Long patId, PatientHistory patientHistoryToUpdate) {
+        List<PatientHistory> patientHistoryList = patientHistoryDAO.findByPatId(patId);
+        log.info("Patient " + patientHistoryList);
+        patientHistoryDAO.save(patientHistoryToUpdate);
+        return patientHistoryToUpdate;
+    }
+
+    public PatientHistory deletePatientyId(Long patId) {
+        return patientHistoryDAO.deleteByPatId(patId);
     }
 
     public List<PatientHistory> findByPatId(Long patId) {
