@@ -72,7 +72,7 @@ public PatientHistory getPatientByLastname(@Valid @PathVariable String lastname)
 
 
         @PostMapping(value = "/PatHistory/add")
-        public PatientHistory addPatient(@Valid @RequestBody PatientHistory patientHistory) {
+        public PatientHistory addPatientHistory(@Valid @RequestBody PatientHistory patientHistory) {
             PatientHistory patientAdded = patientHistoryService.addPatientHistory(patientHistory);
             if (patientHistory != null) {
                 return ResponseEntity.ok(patientAdded).getBody();
