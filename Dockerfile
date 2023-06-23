@@ -1,11 +1,4 @@
-## syntax=docker/dockerfile:1
-#FROM mongo:latest
-#
-#ENV MONGODB_DATABASE=MediscreenDatabase
-#
-#ADD Notes.json /docker-entrypoint-initdb.d/Notes.json
-
-
+# syntax=docker/dockerfile:1
 FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /patient_mdb
