@@ -3,4 +3,4 @@ FROM mongo:7.0.0-rc5-jammy
 
 ENV MONGODB_INITDB_DATABASE MediscreenDatabase
 
-ADD init.js /docker-entrypoint-initdb.d/
+ADD initdb.js /docker-entrypoint-initdb.d/
