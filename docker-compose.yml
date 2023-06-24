@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  mongo_db:
-    container_name: mongo_db
+  mongodb:
+    container_name: mongodb
     build: ./database
     ports:
       - "2727:27017"
@@ -13,6 +13,6 @@ services:
     ports:
       - "888:8082"
     depends_on:
-      - mongo_db
+      - mongodb
     environment:
-      spring.data.mongodb.uri: "mongodb://mongo_db:27017/MediscreenDatabase"
+      spring.data.mongodb.uri: "mongodb://mongodb:27017/MediscreenDatabase"
