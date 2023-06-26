@@ -9,13 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface PatientHistoryDAO extends MongoRepository<PatientHistory, String> {
-    List<PatientHistory> findAll();
-    List<PatientHistory> findByLastname(String lastname);
-    PatientHistory insert(PatientHistory patientHistory);
-
-    PatientHistory save(PatientHistory patientHistoryToUpdate);
-
-    PatientHistory deleteByLastname(String lastname);
-    PatientHistory deleteByPatId(Long patId);
     List<PatientHistory> findByPatId(Long patId);
+
+    Optional<PatientHistory> findByNoteId(Long noteId);
 }

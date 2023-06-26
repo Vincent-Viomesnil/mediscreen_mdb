@@ -1,8 +1,7 @@
 package com.ocr.mediscreen_mdb.controller;
 
 import com.ocr.mediscreen_mdb.Mediscreen_mdbApplication;
-import com.ocr.mediscreen_mdb.exceptions.PatientIntrouvableException;
-import com.ocr.mediscreen_mdb.exceptions.PatientNonCreeException;
+
 import com.ocr.mediscreen_mdb.model.PatientHistory;
 import com.ocr.mediscreen_mdb.service.PatientHistoryService;
 import org.slf4j.Logger;
@@ -28,55 +27,35 @@ public class PatientHistoryController {
             return  patientHistoryService.findAll();
         }
 
-    @GetMapping(value = "/PatHistory/id/{patId}")
-    public PatientHistory getPatientByPatId(@Valid @PathVariable Long patId) {
-        List<PatientHistory> patientHistoryList = patientHistoryService.findByPatId(patId);
-        if (patientHistoryList.isEmpty()) {
-            throw new PatientIntrouvableException("Patient history not found");
-        }
+    @GetMapping(value = "/PatHistory/patid/{patId}")
+    public List<PatientHistory> getListNotesByPatId(@PathVariable Long patId) {
+        return patientHistoryService.getListNotesByPatId(patId);
 
-        PatientHistory patientHistory = new PatientHistory();
-        patientHistory.set_id(patientHistoryList.get(0).get_id());
-        patientHistory.setPatId(patientHistoryList.get(0).getPatId());
-        patientHistory.setLastname(patientHistoryList.get(0).getLastname());
-
-        List<String> notes = patientHistoryList.stream()
-                .map(PatientHistory::getNotes)
-                .collect(Collectors.toList());
-        patientHistory.setNotes(notes.toString());
-
-        return patientHistory;
+    }
+    @GetMapping(value = "/PatHistory/noteid/{noteId}")
+    public PatientHistory getNoteById(@PathVariable Long noteId) {
+        return patientHistoryService.getNoteById(noteId);
     }
 
 
-        @PostMapping(value = "/PatHistory/add")
-        public PatientHistory addPatientHistory(@Valid @RequestBody PatientHistory patientHistory) {
-            PatientHistory patientAdded = patientHistoryService.addPatientHistory(patientHistory);
-            if (patientHistory != null) {
-                return ResponseEntity.ok(patientAdded).getBody();
-            }
-            throw new PatientNonCreeException("Verify the mandatory data");
+    @PostMapping(value = "/PatHistory/add")
+        public PatientHistory addNote(@RequestBody PatientHistory patientHistory) {
+          return  patientHistoryService.addPatientHistory(patientHistory);
         }
 
 
-    @RequestMapping(value = "PatHistory/update", method = RequestMethod.PUT)
-        public PatientHistory updatePatientByLastname(@RequestParam("lastname") String lastname, @RequestBody PatientHistory patientToUpdate) {
-            return patientHistoryService.updatePatientByLastname(lastname, patientToUpdate);
-        }
-
-    @RequestMapping(value="PatHistory/delete", method = RequestMethod.DELETE)
-        public PatientHistory deletePatientByLastname(@RequestParam("lastname") String lastname) {
-            return patientHistoryService.deletePatientByLastname(lastname);
-        }
-
-    @PutMapping(value = "/PatHistory/update/{patId}")
-    public PatientHistory updatePatientById(@PathVariable Long patId, @RequestBody PatientHistory patientToUpdate) {
-        return patientHistoryService.updatePatientById(patId, patientToUpdate);
+    @PutMapping("/PatHistory/update/{id}")
+    public PatientHistory updateNoteById(@PathVariable Long id,
+                           @RequestBody PatientHistory patientNoteToUpdate)  {
+        PatientHistory noteUpdated = patientHistoryService.getNoteById(id);
+        noteUpdated.setNotes(patientNoteToUpdate.getNotes());
+        return patientHistoryService.addPatientHistory(noteUpdated);
     }
 
-    @DeleteMapping(value= "/PatHistory/delete/{patId}")
-    public PatientHistory deletePatientById(@PathVariable Long patId) {
-        return patientHistoryService.deletePatientyId(patId);
+
+    @DeleteMapping(value= "/PatHistory/delete/{id}")
+    public void deleteNoteById(@PathVariable Long id) {
+         patientHistoryService.deleteNoteById(id);
     }
 
     }

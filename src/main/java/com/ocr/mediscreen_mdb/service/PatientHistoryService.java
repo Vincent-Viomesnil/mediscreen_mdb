@@ -1,5 +1,6 @@
 package com.ocr.mediscreen_mdb.service;
 
+import com.ocr.mediscreen_mdb.exceptions.NoteNotFoundException;
 import com.ocr.mediscreen_mdb.model.PatientHistory;
 import com.ocr.mediscreen_mdb.repository.PatientHistoryDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -19,23 +20,8 @@ public class PatientHistoryService {
         return patientHistoryDAO.findAll();
     }
 
-    public List<PatientHistory> findByLastname(String lastname) {
-        return patientHistoryDAO.findByLastname(lastname);
-    }
-
     public PatientHistory addPatientHistory(PatientHistory patientHistory) {
-        return patientHistoryDAO.insert(patientHistory);
-    }
-
-    public PatientHistory updatePatientByLastname(String lastname, PatientHistory patientHistoryToUpdate) {
-        List<PatientHistory> patientHistoryList = patientHistoryDAO.findByLastname(lastname);
-        log.info("Patient " + patientHistoryList);
-        patientHistoryDAO.save(patientHistoryToUpdate);
-        return patientHistoryToUpdate;
-    }
-
-    public PatientHistory deletePatientByLastname(String lastname) {
-        return patientHistoryDAO.deleteByLastname(lastname);
+        return patientHistoryDAO.save(patientHistory);
     }
 
     public PatientHistory updatePatientById(Long patId, PatientHistory patientHistoryToUpdate) {
@@ -45,11 +31,19 @@ public class PatientHistoryService {
         return patientHistoryToUpdate;
     }
 
-    public PatientHistory deletePatientyId(Long patId) {
-        return patientHistoryDAO.deleteByPatId(patId);
+    public void deleteNoteById(Long id) {
+        if (patientHistoryDAO.findById(String.valueOf(id)).isPresent()) {
+            patientHistoryDAO.deleteById(String.valueOf(id));
+    }
+}
+
+    public PatientHistory getNoteById(Long noteId) {
+        Optional<PatientHistory> note =  patientHistoryDAO.findByNoteId(noteId);
+        if (note.isEmpty()) throw new NoteNotFoundException("Note with id " + noteId + " doesn't exist");
+        return note.get();
     }
 
-    public List<PatientHistory> findByPatId(Long patId) {
+    public List<PatientHistory> getListNotesByPatId(Long patId) {
         return patientHistoryDAO.findByPatId(patId);
     }
 }
