@@ -53,9 +53,9 @@ public class PatientHistoryController {
     }
 
 
-    @DeleteMapping(value= "/PatHistory/delete/{id}")
-    public void deleteNoteById(@PathVariable Long id) {
-         patientHistoryService.deleteNoteById(id);
+    @DeleteMapping(value= "/PatHistory/delete/{noteId}")
+    public void deleteNoteById(@PathVariable Long noteId) {
+         patientHistoryService.deleteNoteById(noteId);
     }
 
     }

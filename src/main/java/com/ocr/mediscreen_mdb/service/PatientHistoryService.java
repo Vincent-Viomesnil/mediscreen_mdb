@@ -24,18 +24,11 @@ public class PatientHistoryService {
         return patientHistoryDAO.save(patientHistory);
     }
 
-    public PatientHistory updatePatientById(Long patId, PatientHistory patientHistoryToUpdate) {
-        List<PatientHistory> patientHistoryList = patientHistoryDAO.findByPatId(patId);
-        log.info("Patient " + patientHistoryList);
-        patientHistoryDAO.save(patientHistoryToUpdate);
-        return patientHistoryToUpdate;
+    public void deleteNoteById(Long noteId) {
+        Optional<PatientHistory> note =  patientHistoryDAO.findByNoteId(noteId);
+        if (note.isEmpty()) throw new NoteNotFoundException("Note with id " + noteId + " doesn't exist");
+            patientHistoryDAO.deleteByNoteId(noteId);
     }
-
-    public void deleteNoteById(Long id) {
-        if (patientHistoryDAO.findById(String.valueOf(id)).isPresent()) {
-            patientHistoryDAO.deleteById(String.valueOf(id));
-    }
-}
 
     public PatientHistory getNoteById(Long noteId) {
         Optional<PatientHistory> note =  patientHistoryDAO.findByNoteId(noteId);
