@@ -11,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import javax.validation.Valid;
+
 
 @RestController
 public class PatientHistoryController {
@@ -21,7 +20,6 @@ public class PatientHistoryController {
         private PatientHistoryService patientHistoryService;
         private final Logger logger = LoggerFactory.getLogger(Mediscreen_mdbApplication.class);
 
-        //Retrieve patients history list
         @GetMapping(value = "/PatHistoryList")
         public List<PatientHistory> patientList() {
             return  patientHistoryService.findAll();
