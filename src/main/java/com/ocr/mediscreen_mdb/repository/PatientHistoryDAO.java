@@ -2,6 +2,8 @@ package com.ocr.mediscreen_mdb.repository;
 
 import com.ocr.mediscreen_mdb.model.PatientHistory;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface PatientHistoryDAO extends MongoRepository<PatientHistory, Strin
     Optional<PatientHistory> findByNoteId(Long noteId);
 
     void deleteByNoteId(Long noteId);
+
+    PatientHistory findFirstByPatIdOrderByNoteIdDesc(Long patId);
 }

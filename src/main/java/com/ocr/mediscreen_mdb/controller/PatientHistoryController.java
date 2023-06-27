@@ -40,6 +40,7 @@ public class PatientHistoryController {
 
     @PostMapping(value = "/PatHistory/add")
         public PatientHistory addNote(@RequestBody PatientHistory patientHistory) {
+
           return  patientHistoryService.addPatientHistory(patientHistory);
         }
 
@@ -49,7 +50,7 @@ public class PatientHistoryController {
                            @RequestBody PatientHistory patientNoteToUpdate)  {
         PatientHistory noteUpdated = patientHistoryService.getNoteById(id);
         noteUpdated.setNotes(patientNoteToUpdate.getNotes());
-        return patientHistoryService.addPatientHistory(noteUpdated);
+        return patientHistoryService.updateNoteById(noteUpdated);
     }
 
 
@@ -59,5 +60,8 @@ public class PatientHistoryController {
     }
 
     }
+
+
+
 
 

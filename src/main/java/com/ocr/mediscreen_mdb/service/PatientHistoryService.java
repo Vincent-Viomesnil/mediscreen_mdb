@@ -21,8 +21,20 @@ public class PatientHistoryService {
     }
 
     public PatientHistory addPatientHistory(PatientHistory patientHistory) {
-        return patientHistoryDAO.save(patientHistory);
+        PatientHistory patientHistory1 = new PatientHistory();
+
+            PatientHistory latestNote = patientHistoryDAO.findFirstByPatIdOrderByNoteIdDesc(patientHistory.getPatId());
+
+            Long newNoteId = latestNote.getNoteId() + 1;
+            patientHistory1.setPatId(patientHistory.getPatId());
+            patientHistory1.setLastname(patientHistory.getLastname());//retouner le lastname du patient
+            patientHistory1.setNotes(patientHistory.getNotes());
+            patientHistory1.setNoteId(newNoteId);
+
+        return patientHistoryDAO.save(patientHistory1);
     }
+
+
 
     public void deleteNoteById(Long noteId) {
         Optional<PatientHistory> note =  patientHistoryDAO.findByNoteId(noteId);
@@ -38,5 +50,9 @@ public class PatientHistoryService {
 
     public List<PatientHistory> getListNotesByPatId(Long patId) {
         return patientHistoryDAO.findByPatId(patId);
+    }
+
+    public PatientHistory updateNoteById(PatientHistory noteUpdated) {
+        return patientHistoryDAO.save(noteUpdated);
     }
 }
