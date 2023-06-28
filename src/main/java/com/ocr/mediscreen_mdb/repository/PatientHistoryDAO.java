@@ -17,5 +17,5 @@ public interface PatientHistoryDAO extends MongoRepository<PatientHistory, Strin
 
     void deleteByNoteId(Long noteId);
 
-    PatientHistory findFirstByPatIdOrderByNoteIdDesc(Long patId);
+    PatientHistory findFirstByOrderByNoteIdDesc();
 }

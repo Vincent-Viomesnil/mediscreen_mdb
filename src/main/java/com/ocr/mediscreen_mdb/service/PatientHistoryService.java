@@ -23,8 +23,8 @@ public class PatientHistoryService {
     public PatientHistory addPatientHistory(PatientHistory patientHistory) {
         PatientHistory patientHistory1 = new PatientHistory();
 
-            PatientHistory latestNote = patientHistoryDAO.findFirstByPatIdOrderByNoteIdDesc(patientHistory.getPatId());
-
+            PatientHistory latestNote = patientHistoryDAO.findFirstByOrderByNoteIdDesc();
+            // Doit retourner la dernière notes au global et non par patId.
             Long newNoteId = latestNote.getNoteId() + 1;
             patientHistory1.setPatId(patientHistory.getPatId());
             patientHistory1.setLastname(patientHistory.getLastname());//retouner le lastname du patient
