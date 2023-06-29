@@ -20,7 +20,8 @@ public class PatientHistoryController {
         private PatientHistoryService patientHistoryService;
         private final Logger logger = LoggerFactory.getLogger(Mediscreen_mdbApplication.class);
 
-        @GetMapping(value = "/PatHistoryList")
+
+    @GetMapping(value = "/PatHistoryList")
         public List<PatientHistory> patientList() {
             return  patientHistoryService.findAll();
         }
