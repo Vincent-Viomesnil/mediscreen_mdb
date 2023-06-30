@@ -1,12 +1,10 @@
 package com.ocr.mediscreen_mdb.controller;
 
-import com.ocr.mediscreen_mdb.Mediscreen_mdbApplication;
 import com.ocr.mediscreen_mdb.model.PatientHistory;
 import com.ocr.mediscreen_mdb.service.PatientHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,13 +25,13 @@ public class PatientHistoryController {
 
     @GetMapping(value = "/PatHistory/patid/{patId}")
     public List<PatientHistory> getListNotesByPatId(@PathVariable Long patId) {
-        logger.info("get list of notes with patient id : " +patId);
+        logger.info("get list of notes with patient id : " + patId);
         return patientHistoryService.getListNotesByPatId(patId);
     }
 
     @GetMapping(value = "/PatHistory/noteid/{noteId}")
     public PatientHistory getNoteById(@PathVariable Long noteId) {
-        logger.info("Get Note Id: " +noteId);
+        logger.info("Get Note Id: " + noteId);
         return patientHistoryService.getNoteById(noteId);
     }
 
@@ -46,7 +44,7 @@ public class PatientHistoryController {
     @PutMapping("/PatHistory/update/{id}")
     public PatientHistory updateNoteById(@PathVariable Long id,
                                          @RequestBody PatientHistory patientNoteToUpdate) {
-        logger.info("Note updated : " +id);
+        logger.info("Note updated : " + id);
         PatientHistory noteUpdated = patientHistoryService.getNoteById(id);
         noteUpdated.setNotes(patientNoteToUpdate.getNotes());
         return patientHistoryService.updateNoteById(noteUpdated);
@@ -54,7 +52,7 @@ public class PatientHistoryController {
 
     @DeleteMapping(value = "/PatHistory/delete/{noteId}")
     public void deleteNoteById(@PathVariable Long noteId) {
-        logger.info("Note deleted : " +noteId);
+        logger.info("Note deleted : " + noteId);
         patientHistoryService.deleteNoteById(noteId);
     }
 }
